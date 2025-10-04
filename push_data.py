@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 MONGO_DB_URL=os.getenv("MONGO_DB_URL")
-print(MONGO_DB_URL)
+# print(MONGO_DB_URL)
 
 import certifi
 ca=certifi.where()
@@ -29,6 +29,7 @@ class NetworkDataExtract():
             data=pd.read_csv(file_path)
             data.reset_index(drop=True,inplace=True)
             records=list(json.loads(data.T.to_json()).values())
+            logging.info(f"Converted {file_path} to json records")
             return records
         except Exception as e:
             raise NetworkSecurityException(e,sys)
@@ -44,6 +45,7 @@ class NetworkDataExtract():
             
             self.collection=self.database[self.collection]
             self.collection.insert_many(self.records)
+            logging.info(f"Inserted {len(self.records)} records in database {database} and collection {collection}")
             return(len(self.records))
         except Exception as e:
             raise NetworkSecurityException(e,sys)
