@@ -44,4 +44,6 @@ if __name__=='__main__':
         
         
     except Exception as e:
-           raise NetworkSecurityException(e,sys)
+           raise NetworkSecurityException(
+               error_message=str(e),
+               error_details=sys)
