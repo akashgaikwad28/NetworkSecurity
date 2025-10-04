@@ -41,7 +41,7 @@ class DataIngestion:
                 df=df.drop(columns=["_id"],axis=1)
             
             df.replace({"na":np.nan},inplace=True)
-            logging.info(f"Exported data from mongodb database:{database_name} and collection :{collection_name} into dataframe")
+            logging.info(f"Exported data  from mongodb database:{database_name} and collection :{collection_name} into dataframe")
             return df
         except Exception as e:
             raise NetworkSecurityException(str(e), sys, sys.exc_info())
