@@ -41,9 +41,10 @@ class DataIngestion:
                 df=df.drop(columns=["_id"],axis=1)
             
             df.replace({"na":np.nan},inplace=True)
+            logging.info(f"Exported data from mongodb database:{database_name} and collection :{collection_name} into dataframe")
             return df
         except Exception as e:
-            raise NetworkSecurityException
+            raise NetworkSecurityException(e,sys)
         
     def export_data_into_feature_store(self,dataframe: pd.DataFrame):
         try:
@@ -59,6 +60,10 @@ class DataIngestion:
         
     def split_data_as_train_test(self,dataframe: pd.DataFrame):
         try:
+            
+            if dataframe.empty:
+                raise NetworkSecurityException("DataFrame is empty. Cannot perform train-test split.", sys)
+
             train_set, test_set = train_test_split(
                 dataframe, test_size=self.data_ingestion_config.train_test_split_ratio
             )
@@ -98,4 +103,4 @@ class DataIngestion:
             return dataingestionartifact
 
         except Exception as e:
-            raise NetworkSecurityException
+            raise NetworkSecurityException(e,sys)
