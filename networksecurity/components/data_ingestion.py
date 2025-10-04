@@ -24,7 +24,7 @@ class DataIngestion:
         try:
             self.data_ingestion_config=data_ingestion_config
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException(str(e), sys, sys.exc_info())
         
     def export_collection_as_dataframe(self):
         """
@@ -44,7 +44,7 @@ class DataIngestion:
             logging.info(f"Exported data from mongodb database:{database_name} and collection :{collection_name} into dataframe")
             return df
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException(str(e), sys, sys.exc_info())
         
     def export_data_into_feature_store(self,dataframe: pd.DataFrame):
         try:
@@ -56,7 +56,7 @@ class DataIngestion:
             return dataframe
             
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException(str(e), sys, sys.exc_info())
         
     def split_data_as_train_test(self,dataframe: pd.DataFrame):
         try:
@@ -90,7 +90,7 @@ class DataIngestion:
 
             
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException(str(e), sys, sys.exc_info())
         
         
     def initiate_data_ingestion(self):
@@ -103,4 +103,4 @@ class DataIngestion:
             return dataingestionartifact
 
         except Exception as e:
-            raise NetworkSecurityException(e,sys)
+            raise NetworkSecurityException(str(e), sys, sys.exc_info())
