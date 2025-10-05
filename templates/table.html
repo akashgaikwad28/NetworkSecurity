@@ -1,16 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Table</title>
+    <title>Predicted Data</title>
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
+
+        th {
+            background-color: #007acc;
+            color: white;
+            padding: 12px;
             text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media screen and (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                position: sticky;
+                top: 0;
+                background-color: #007acc;
+                color: white;
+            }
+
+            td {
+                border: none;
+                padding: 12px;
+                text-align: right;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 12px;
+                text-align: left;
+                font-weight: bold;
+                color: #555;
+            }
         }
     </style>
 </head>
