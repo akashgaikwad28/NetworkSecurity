@@ -1,0 +1,29 @@
+stages:
+  data_ingestion:
+    cmd: \
+  data_transformation:
+    cmd: python networksecurity/components/data_transformation.py
+    deps:
+    - Artifacts/10_04_2025_16_42_39/data_ingestion/ingested/train.csv
+    - networksecurity/components/data_transformation.py
+    outs:
+    - Artifacts/10_04_2025_16_42_39/data_transformation/transformed/test.npy
+    - Artifacts/10_04_2025_16_42_39/data_transformation/transformed/train.npy
+    - Artifacts/10_04_2025_16_42_39/data_transformation/transformed_object/preprocessor.pkl
+  model_training:
+    cmd: python networksecurity/components/model_trainer.py
+    deps:
+    - Artifacts/10_04_2025_16_42_39/data_transformation/transformed/train.npy
+    - networksecurity/components/model_trainer.py
+    outs:
+    - final_model/model.pkl
+    - final_model/preprocessor.pkl
+  data_validation:
+    cmd: python networksecurity/components/data_validation.py
+    deps:
+    - Artifacts/10_04_2025_16_42_39/data_ingestion/ingested/train.csv
+    - data_schema/schema.yaml
+    - networksecurity/components/data_validation.py
+    outs:
+    - Artifacts/10_04_2025_16_42_39/data_validation/drift_report/report.yaml
+    - Artifacts/10_04_2025_16_42_39/data_validation/validated/train.csv
