@@ -1,11 +1,8 @@
 from setuptools import find_packages, setup
 from typing import List
-
+import os
 def get_requirements() -> List[str]:
-    """
-    This function returns a list of requirements from requirements.txt,
-    excluding editable installs like '-e .'
-    """
+    
     requirement_lst: List[str] = []
     try:
         with open('requirements.txt', 'r') as file:
